@@ -1,1 +1,2 @@
-# School-Cafeteria-Project
+## 프로젝트명: 학식 주문 프로그램
+## 주제: AWT, Swing패키지를 활용한 키오스크 프로그램
