@@ -35,7 +35,8 @@ public class SchoolCafeteria extends JFrame {
 		Panel CenterPanel = new Panel();
 		CenterPanel.setLayout(null);
 		CenterPanel.setBackground(Color.LIGHT_GRAY);
-		String menu[] = {" "};
+		String menu[] = {" "," "," "," "," "," "," "," "," "," ",
+				" "," "," "," "," "," "," "," "," "," "," ",};
 		
 		String menu_txt[] = {"", "", "", "", 
 				"","", " 사이드메뉴 "," "," ", " ",
@@ -124,9 +125,28 @@ public class SchoolCafeteria extends JFrame {
         Panel SouthPanel = new Panel();
         TextArea txt = new TextArea("");
         
+        String[] [] data = new String[0][0];                  //하단바 관련
+        String[] title = {"상품명","단가","수량","합계", "총 금액"};
+        DefaultTableModel model = new DefaultTableModel(data, title);
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(1150,130)); //하단바 사이즈관련
+        SouthPanel.add(scrollPane);
+        
 	    Panel SelectPanel = new Panel();
 	    SelectPanel.setLayout(new GridLayout(3,1,50,0));
 	    JButton order[] = new JButton[3];
+	    
+	    order[0] = new JButton(new ImageIcon("./img/close.png"));  //close이미지변경
+	    order[1] = new JButton(new ImageIcon("./img/reset.png"));  //reset이미지변경
+	    order[2] = new JButton(new ImageIcon("./img/order.png"));  //order이미지변경
+	    order[0].setBackground(Color.WHITE);
+	    order[1].setBackground(Color.WHITE);
+	    order[2].setBackground(Color.WHITE);
+	    SelectPanel.add(order[0]);
+	    SelectPanel.add(order[1]);
+	    SelectPanel.add(order[2]);
 
 		
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -144,5 +164,4 @@ public class SchoolCafeteria extends JFrame {
 		new SchoolCafeteria();
 
 	}
-
 }
