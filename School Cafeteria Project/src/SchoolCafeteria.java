@@ -13,8 +13,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-//À¶ÇÁ2 ÇÁ·ÎÁ§Æ®
-//AWT, SwingÆĞÅ°Áö¸¦ È°¿ëÇÑ ÇĞ½ÄÁÖ¹® Å°¿À½ºÅ© ÇÁ·Î±×·¥
+//ìœµí”„2 í”„ë¡œì íŠ¸
+//AWT, SwingíŒ¨í‚¤ì§€ë¥¼ í™œìš©í•œ í•™ì‹ì£¼ë¬¸ í‚¤ì˜¤ìŠ¤í¬ í”„ë¡œê·¸ë¨
+//utf-8
+
 
 public class SchoolCafeteria extends JFrame {
     Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 13);
@@ -22,14 +24,14 @@ public class SchoolCafeteria extends JFrame {
     int count; int total=0; int col=0; int row=0; String contents = "";
 	
 	public SchoolCafeteria(){
-		JFrame frame = new JFrame("ÇĞ½ÄÁÖ¹® Å°¿À½ºÅ©");
+		JFrame frame = new JFrame("í•™ì‹ì£¼ë¬¸ í‚¤ì˜¤ìŠ¤í¬");
 		
         Panel NorthPanel = new Panel();
         NorthPanel.setBackground(Color.orange);
         NorthPanel.setLayout(new FlowLayout());
         
         Label highbar = new Label();
-        highbar.setText("<ÇĞ½ÄÁÖ¹® ÇÁ·Î±×·¥>");
+        highbar.setText("<í•™ì‹ì£¼ë¬¸ í”„ë¡œê·¸ë¨>");
 		NorthPanel.add(highbar);
 		
 		Panel CenterPanel = new Panel();
@@ -39,7 +41,7 @@ public class SchoolCafeteria extends JFrame {
 				" "," "," "," "," "," "," "," "," "," "," ",};
 		
 		String menu_txt[] = {"", "", "", "", 
-				"","", " »çÀÌµå¸Ş´º "," "," ", " ",
+				"","", " ì‚¬ì´ë“œë©”ë‰´ "," "," ", " ",
 				"","","","+ "," ", " "," ",
 				" ", " "," ", ""};
 		
@@ -106,10 +108,10 @@ public class SchoolCafeteria extends JFrame {
             plus[i].setBounds(bt_menu[i].getX() + (100 - 20), num[i].getY(), 20, 20);
             plus[i].setEnabled(true);
             
-            won[i] = new Label(price[i] + "¿ø");
+            won[i] = new Label(price[i] + "ì›");
             won[i].setBounds(bt_menu[i].getX() + 30, num[i].getY() - 25, 100, 20);
             
-            ok[i] = new JButton("È®ÀÎ");
+            ok[i] = new JButton("í™•ì¸");
             ok[i].setBounds(bt_menu[i].getX(), num[i].getY() + 30, 100, 20);
             ok[i].setEnabled(false);
             
@@ -125,22 +127,22 @@ public class SchoolCafeteria extends JFrame {
         Panel SouthPanel = new Panel();
         TextArea txt = new TextArea("");
         
-        String[] [] data = new String[0][0];                  //ÇÏ´Ü¹Ù °ü·Ã
-        String[] title = {"»óÇ°¸í","´Ü°¡","¼ö·®","ÇÕ°è", "ÃÑ ±İ¾×"};
+        String[] [] data = new String[0][0];                  //í•˜ë‹¨ë°” ê´€ë ¨
+        String[] title = {"ìƒí’ˆëª…","ë‹¨ê°€","ìˆ˜ëŸ‰","í•©ê³„", "ì´ ê¸ˆì•¡"};
         DefaultTableModel model = new DefaultTableModel(data, title);
         JTable table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1150,130)); //ÇÏ´Ü¹Ù »çÀÌÁî°ü·Ã
+        scrollPane.setPreferredSize(new Dimension(1150,130)); //í•˜ë‹¨ë°” ì‚¬ì´ì¦ˆê´€ë ¨
         SouthPanel.add(scrollPane);
         
 	    Panel SelectPanel = new Panel();
 	    SelectPanel.setLayout(new GridLayout(3,1,50,0));
 	    JButton order[] = new JButton[3];
 	    
-	    order[0] = new JButton(new ImageIcon("./img/close.png"));  //closeÀÌ¹ÌÁöº¯°æ
-	    order[1] = new JButton(new ImageIcon("./img/reset.png"));  //resetÀÌ¹ÌÁöº¯°æ
-	    order[2] = new JButton(new ImageIcon("./img/order.png"));  //orderÀÌ¹ÌÁöº¯°æ
+	    order[0] = new JButton(new ImageIcon("./img/close.png"));  //closeì´ë¯¸ì§€ë³€ê²½
+	    order[1] = new JButton(new ImageIcon("./img/reset.png"));  //resetì´ë¯¸ì§€ë³€ê²½
+	    order[2] = new JButton(new ImageIcon("./img/order.png"));  //orderì´ë¯¸ì§€ë³€ê²½
 	    order[0].setBackground(Color.WHITE);
 	    order[1].setBackground(Color.WHITE);
 	    order[2].setBackground(Color.WHITE);
