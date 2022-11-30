@@ -90,11 +90,13 @@ public class mainUI extends JFrame implements ActionListener {  //학식주문�
 
 		//중앙패널 메뉴배열, 메뉴텍스트배열
 		String menu[] = {"메뉴1", "메뉴2", "메뉴3", "메뉴4", "메뉴5", "메뉴6", "사이드1", "사이드2", "사이드3","음료수1", "음료수2"};
-		String menu_txt[] = {"main: 제육덮밥", "main: 제육덮밥 ", "main: 제육덮밥 ", "main: 치즈불닭", "main: 치즈불닭", "main: 치즈불닭", "side: 감자튀김", "side: 감자튀김", "side: 감자튀김","drink: 콜라", "drink: 콜라"};
+		String menu_txt[] = {"main: 제육덮밥", "main: 비빔밥 ", "main: 비빔국수 ", "main: 닭볶음탕", "main: 치킨덮밥", "main: 치즈불닭", "side: 감자튀김", "side: 감자튀김", "side: 감자튀김","drink: 콜라", "drink: 콜라"};
 		//가격배열
-		int price[] = {4000, 4500, 4500, 4700,
-			2500, 2500, 2700, 3300,
-			3500, 3500, 3500, 3000};
+		int price[] = 
+			{6000, 5000, 4500, //메인메뉴 1,2,3 가격
+			 6000, 5000, 2500, //메인메뉴 4,5,6 가격 
+			 2700, 2500, 2500, //사이드메뉴 1,2,3 가격 
+			 1500, 1500};      //음료 1,2 가격
 		
 			JButton bt_menu[] = new JButton[menu.length];
 			TextField num[] = new TextField[menu.length];
@@ -107,16 +109,16 @@ public class mainUI extends JFrame implements ActionListener {  //학식주문�
 
 			//메뉴 이미지 설정
 			bt_menu[0] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\제육덮밥.jpg"));
-			bt_menu[1] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\제육덮밥.jpg"));
-			bt_menu[2] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\제육덮밥.jpg"));
-			bt_menu[3] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\치즈불닭.jpg"));
-			bt_menu[4] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\치즈불닭.jpg"));
+			bt_menu[1] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\비빔밥.jpg"));
+			bt_menu[2] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\비빔국수.jpg"));
+			bt_menu[3] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\닭볶음탕.jpg"));
+			bt_menu[4] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\치킨덮밥.jpg"));
 			bt_menu[5] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\치즈불닭.jpg"));
 			bt_menu[6] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\감자튀김.png"));
-			bt_menu[7] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\감자튀김.png"));
-			bt_menu[8] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\감자튀김.png"));
+			bt_menu[7] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\소떡소떡.jpg"));
+			bt_menu[8] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\물만두.png"));
 			bt_menu[9] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\콜라.jpg"));
-			bt_menu[10] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\콜라.jpg"));
+			bt_menu[10] = new JButton(new ImageIcon("School Cafeteria Project\\img\\menu\\사이다.png"));
 
 			//반복문을 통해 JButton 학식메뉴를 주문화면에 뿌려준다.
 			for (int i = 0; i < menu.length; i++) {
@@ -240,7 +242,7 @@ public class mainUI extends JFrame implements ActionListener {  //학식주문�
 										txt.setText("");
 									}
 									else {
-										JOptionPane.showMessageDialog(null, txt.getText()+"총 금액 : "+total+"원\n"+"주문되었습니다. \n이용해주셔서 감사합니다.");
+										JOptionPane.showMessageDialog(null, txt.getText()+"총 "+total+"원 결제되었습니다. \n감사합니다.");
 										total=0; txt.setText(""); model.setNumRows(0);
 									}
 								}
