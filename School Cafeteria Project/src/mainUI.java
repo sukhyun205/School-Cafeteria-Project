@@ -14,43 +14,114 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.colorchooser.ColorChooserComponentFactory;
+// 재고 관리표 만들기 위해
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+
+
 
 //융프2 프로젝트
 //AWT, Swing패키지를 활용한 학식주문 키오스크 프로그램
 //utf-8
 
-class Kitchen extends JFrame implements ActionListener{  //재고관리를 위한 Kitchen클래스
 
+//class Kitchen extends JFrame implements ActionListener{  //재고관리를 위한 Kitchen클래스
+//	
+//    public Kitchen(String [] menu_name, int [] menu_rest_num){
+//        super("주방");
+//        setSize(1000, 1000);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Container contentPane = getContentPane();
+//		contentPane.setLayout(new BorderLayout(10, 20));
+//		
+//		JLabel la1 = new JLabel("재고상황");
+//		la1.setHorizontalAlignment(JLabel.CENTER);
+//		la1.setFont(new Font("고딕체", Font.BOLD, 30));
+//		la1.setOpaque(true);
+//		la1.setBackground(Color.GRAY);
+//		contentPane.add(la1, BorderLayout.NORTH);
+//		
+//		String menu_rest = "";
+//		for (int i=0; i<menu_name.length; i++) {
+//			menu_rest = menu_rest+"<br>"+menu_name[i]+"의 재고: "+menu_rest_num[i];
+//		}
+//		
+//		JLabel la2 = new JLabel("<html><body><center>"
+//				+ menu_rest
+//				+ "</center></body></html>");
+//		la2.setFont(new Font("고딕체", Font.ITALIC, 20));
+//		contentPane.add(la2, BorderLayout.CENTER);
+//		
+//        JButton bt = new JButton("닫기");
+//        contentPane.add(bt, BorderLayout.SOUTH);
+//        bt.addActionListener(this);
+//        bt.setFont(new Font("고딕체", Font.BOLD, 30));
+//        setLocation(200, 0);
+//        setVisible(true);
+//    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        // TODO Auto-generated method stub
+//        dispose();
+//    }
+//}
+
+class Kitchen extends JFrame implements ActionListener{  //재고관리를 위한 Kitchen클래스
+	
     public Kitchen(String [] menu_name, int [] menu_rest_num){
-        super("주방");
-        setSize(1000, 1000);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container contentPane = getContentPane();
-		contentPane.setLayout(new BorderLayout(10, 20));
-		
-		JLabel la1 = new JLabel("재고상황");
-		la1.setHorizontalAlignment(JLabel.CENTER);
-		la1.setFont(new Font("고딕체", Font.BOLD, 30));
-		la1.setOpaque(true);
-		la1.setBackground(Color.GRAY);
-		contentPane.add(la1, BorderLayout.NORTH);
-		
-		String menu_rest = "";
-		for (int i=0; i<menu_name.length; i++) {
-			menu_rest = menu_rest+"<br>"+menu_name[i]+"의 재고: "+menu_rest_num[i];
-		}
-		
-		JLabel la2 = new JLabel("<html><body><center>"
-				+ menu_rest
-				+ "</center></body></html>");
-		la2.setFont(new Font("고딕체", Font.ITALIC, 20));
-		contentPane.add(la2, BorderLayout.CENTER);
-		
+        JFrame f = new JFrame("재고 사항");
+        Object data[][] = {
+                {menu_name[0], menu_rest_num[0]},
+                {menu_name[1], menu_rest_num[1]},
+                {menu_name[2], menu_rest_num[2]},
+                {menu_name[3], menu_rest_num[3]},
+                {menu_name[4], menu_rest_num[4]},
+                {menu_name[5], menu_rest_num[5]},
+                {menu_name[6], menu_rest_num[6]},
+                {menu_name[7], menu_rest_num[7]},
+                {menu_name[8], menu_rest_num[8]},
+                {menu_name[9], menu_rest_num[9]},
+                {menu_name[10], menu_rest_num[10]},
+                {menu_name[11], menu_rest_num[11]}
+                
+         };
+        
+
+         Object column[]= {"메뉴","재고량"};
+
+         JTable jt=new JTable(data,column);
+         jt.setCellSelectionEnabled(true);
+         ListSelectionModel select= jt.getSelectionModel();
+         select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+         select.addListSelectionListener(new ListSelectionListener() {
+             public void valueChanged(ListSelectionEvent e) {
+                   String Data = null;
+                   int[] row = jt.getSelectedRows();
+
+                   for(int i = 0; i < row.length; i++) {
+                	   Data = (String)jt.getValueAt(row[i], i);
+
+           }
+           System.out.println("Table element selected is: " + Data);
+           JOptionPane.showMessageDialog(f,"선택된 테이블은 " + Data + " 입니다");
+           }
+        });
+        JScrollPane sp=new JScrollPane(jt);
+        f.add(sp);
+        f.setSize(400, 300);
+        f.setVisible(true);
+        
         JButton bt = new JButton("닫기");
-        contentPane.add(bt, BorderLayout.SOUTH);
+        f.add(bt, BorderLayout.SOUTH);
         bt.addActionListener(this);
+        bt.setFont(new Font("고딕체", Font.BOLD, 30));
         setLocation(200, 0);
-        setVisible(true);
+//        setVisible(true);
+		
     }
 
     @Override
