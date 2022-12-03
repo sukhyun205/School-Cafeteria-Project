@@ -85,8 +85,6 @@ class Kitchen extends JFrame implements ActionListener{  //재고관리를 위�
                 {menu_name[8], menu_rest_num[8]},
                 {menu_name[9], menu_rest_num[9]},
                 {menu_name[10], menu_rest_num[10]},
-                {menu_name[11], menu_rest_num[11]}
-                
          };
         
 
@@ -135,7 +133,7 @@ class Kitchen extends JFrame implements ActionListener{  //재고관리를 위�
 public class mainUI extends JFrame implements ActionListener {  
 	Kitchen kitchen;
     //메뉴판배열 menu_name[12] 6가지 메인메뉴 + 3가지 사이드메뉴 + 3가지 음료수메뉴 
-    String menu_name[] = {"메뉴1", "메뉴2", "메뉴3", "메뉴4", "메뉴5", "메뉴6", "사이드1", "사이드2", "사이드3","음료수1", "음료수2", "음료수3"};
+    String menu_name[] = {"main: 제육덮밥", "main: 비빔밥 ", "main: 비빔국수 ", "main: 닭볶음탕", "main: 치킨덮밥", "main: 치즈불닭", "side: 감자튀김", "side: 소떡소떡", "side: 물만두","drink: 콜라", "drink: 사이다"};
 	//재고수량배열 menu_rest_num[12]
     int menu_rest_num[]= {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
     int count[]; int total=0; int col=0; int row=0; String contents = "";
@@ -258,16 +256,6 @@ public class mainUI extends JFrame implements ActionListener {
 			Panel SelectPanel = new Panel();									   
 			SelectPanel.setLayout(new GridLayout(3,1,50,0)); //메뉴선택 SelectPanel 레이아웃
 			JButton order[] = new JButton[3];
-
-			//레이아웃 위치 설정
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.add(NorthPanel, BorderLayout.NORTH);       //프로젝트제목 NorthPanel
-			frame.add(CenterPanel, BorderLayout.CENTER);	 //메뉴판 CenterPanel
-			frame.add(EastPanel, BorderLayout.EAST);		 //주문담기창 EastPanel
-			EastPanel.setBackground(Color.white);
-			frame.add(SelectPanel, BorderLayout.WEST);		 //주요기능 선택창 SelectPanel
-			frame.setSize(1250, 850);          //학식주문 전체창 사이즈
-			frame.setVisible(true);
 			
 			//주요기능 3가지 버튼
 			order[0] = new JButton(new ImageIcon("School Cafeteria Project\\img\\icon\\close.png"));  //close이미지 삽입
@@ -279,6 +267,16 @@ public class mainUI extends JFrame implements ActionListener {
 			SelectPanel.add(order[0]);	//close버튼 추가
 			SelectPanel.add(order[1]);	//reset버튼 추가
 			SelectPanel.add(order[2]);	//order버튼 추가
+
+			//레이아웃 위치 설정
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.add(NorthPanel, BorderLayout.NORTH);       //프로젝트제목 NorthPanel
+			frame.add(CenterPanel, BorderLayout.CENTER);	 //메뉴판 CenterPanel
+			frame.add(EastPanel, BorderLayout.EAST);		 //주문담기창 EastPanel
+			EastPanel.setBackground(Color.white);
+			frame.add(SelectPanel, BorderLayout.WEST);		 //주요기능 선택창 SelectPanel
+			frame.setSize(1250, 850);          //학식주문 전체창 사이즈
+			frame.setVisible(true);
 
 			// 1.종료 버튼
 			order[0].addActionListener(new ActionListener() {
@@ -318,7 +316,8 @@ public class mainUI extends JFrame implements ActionListener {
 
 							//main메뉴를 선택하지 않고, side메뉴만 선택했을시 안내 메세지 출력
 							if(!contents.contains("main:") && contents.contains("side:"))
-							{JOptionPane.showMessageDialog(null, "메인메뉴가 선택되지 않았습니다.\n사이드메뉴는 메인메뉴 선택 시 추가할 수 있습니다.\n음료수는 메인메뉴와 상관없이 주문가능합니다."); 
+							{JOptionPane.showMessageDialog(
+							null, "메인메뉴가 선택되지 않았습니다.\n사이드메뉴는 메인메뉴 선택 시 추가할 수 있습니다.\n음료수는 메인메뉴와 상관없이 주문가능합니다."); 
 							txt.setText("");}
 
 							//정상적으로 main메뉴와 side메뉴를 함께 선택했다면 "총 OO원 결제 메세지" 출력
@@ -332,9 +331,7 @@ public class mainUI extends JFrame implements ActionListener {
 					else
 						JOptionPane.showMessageDialog(null, "메뉴 선택 단계로 돌아갑니다.\n");
 	
-					for (int i = 0; i < menu.length; i++) {
-						num[i].setText("0");  //초기화
-					}
+					for (int i = 0; i < menu.length; i++) {num[i].setText("0");}  //초기화					
 				}
 			});
 
