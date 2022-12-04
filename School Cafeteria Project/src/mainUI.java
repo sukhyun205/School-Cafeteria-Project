@@ -14,79 +14,72 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.colorchooser.ColorChooserComponentFactory;
-
-// 재고 관리표 관련
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-
-
 //융프2 프로젝트
+//1조 슈프림팀
+//팀원: 권석현, 김민경, 김규태
 //AWT, Swing패키지를 활용한 학식주문 키오스크 프로그램
-//utf-8
-
-
+//utf-8인코딩
 
 //재고관리를 위한 Kitchen클래스
-class Kitchen extends JFrame {  //재고관리를 위한 Kitchen클래스
-   
-  public Kitchen(String [] menu_name, int [] menu_rest_num){
-      JFrame f = new JFrame("재고 사항");
-      Object data[][] = {
-              {menu_name[0], menu_rest_num[0]},
-              {menu_name[1], menu_rest_num[1]},
-              {menu_name[2], menu_rest_num[2]},
-              {menu_name[3], menu_rest_num[3]},
-              {menu_name[4], menu_rest_num[4]},
-              {menu_name[5], menu_rest_num[5]},
-              {menu_name[6], menu_rest_num[6]},
-              {menu_name[7], menu_rest_num[7]},
-              {menu_name[8], menu_rest_num[8]},
-              {menu_name[9], menu_rest_num[9]},
-              {menu_name[10], menu_rest_num[10]},
-       };
-      
+class Kitchen extends JFrame {  
+	   
+	  public Kitchen(String [] menu_name, int [] menu_rest_num){				// 매개값은 String, 마지막 하나는 int 타입으로 생성자를 선언
+	      JFrame f = new JFrame("재고 사항");
+	      Object data[][] = {													// 데이터를 이중 배열로 선언
+	              {menu_name[0], menu_rest_num[0]},
+	              {menu_name[1], menu_rest_num[1]},
+	              {menu_name[2], menu_rest_num[2]},
+	              {menu_name[3], menu_rest_num[3]},
+	              {menu_name[4], menu_rest_num[4]},
+	              {menu_name[5], menu_rest_num[5]},
+	              {menu_name[6], menu_rest_num[6]},
+	              {menu_name[7], menu_rest_num[7]},
+	              {menu_name[8], menu_rest_num[8]},
+	              {menu_name[9], menu_rest_num[9]},
+	              {menu_name[10], menu_rest_num[10]},
+	       };
+	     
+	       Object column[]= {"메뉴","재고량"};										// 컬럼(열) 이름
 
-       Object column[]= {"메뉴","재고량"};
+	       JTable jt = new JTable(data,column);									// 테이블 형태로 데이터를 보여주기 위해 사용
+	       jt.setCellSelectionEnabled(true);									// 선택모드를 사용할지 설정
+	       ListSelectionModel select= jt.getSelectionModel();					// 리스트 모델로 지정
+	       select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		// 하나의 셀만 선택
+	      
+	       select.addListSelectionListener(new ListSelectionListener() {		// 리스트에서 선택하는 항목이 바뀌었을 때 이벤트를 받기 위한 리스너 추가
+	           public void valueChanged(ListSelectionEvent e) {
+	                 String Data = null;
+	                 int[] row = jt.getSelectedRows();							// 선택된 행들을 배열 형태로 얻어옴
 
-       JTable jt=new JTable(data,column);
-       jt.setCellSelectionEnabled(true);
-       ListSelectionModel select= jt.getSelectionModel();
-       select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      
-       select.addListSelectionListener(new ListSelectionListener() {
-           public void valueChanged(ListSelectionEvent e) {
-                 String Data = null;
-                 int[] row = jt.getSelectedRows();
-
-                 for(int i = 0; i < row.length; i++) {
-                    Data = (String)jt.getValueAt(row[i], i);
-
-         }
-         System.out.println("Table element selected is: " + Data);
-         JOptionPane.showMessageDialog(f,"선택된 테이블은 " + Data + " 입니다");
-         }
-      });
-      JScrollPane sp=new JScrollPane(jt);
-      f.add(sp);
-      f.setSize(400, 300);
-      f.setVisible(true);
-      
-      JButton bt = new JButton("닫기");
-      f.add(bt, BorderLayout.SOUTH);
-      bt.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e2) {
-            f.dispose();
-            }
-      });
-      bt.setFont(new Font("고딕체", Font.BOLD, 30));
-      setLocation(200, 0);
-//      setVisible(true);
-      
-  }
-}
+	                 for(int i = 0; i < row.length; i++) {						// 데이터 삽입
+	                		 Data = (String)jt.getValueAt(row[i], i);
+	         }
+	         System.out.println("Table element selected is: " + Data);
+	         JOptionPane.showMessageDialog(f,"선택된 테이블은 " + Data + " 입니다");	// 선택 결과 나타남
+	         }
+	      });
+	       
+	      JScrollPane sp=new JScrollPane(jt);									// 스크롤 기능 설정
+	      f.add(sp);
+	      f.setSize(400, 300);
+	      f.setVisible(true);
+	      
+	      JButton bt = new JButton("닫기");										// 닫기 버튼 생성
+	      f.add(bt, BorderLayout.SOUTH);										// 하단에 닫기 버튼 생성
+	      bt.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e2) {
+	            f.dispose();													// dispose() 사용하여 현재의 frame만 종료시킴
+	            }
+	      });
+	      bt.setFont(new Font("고딕체", Font.BOLD, 30));							// 버튼 폰트 및 사이즈 설정
+	      setLocation(200, 0);      
+	  }
+	}
 
 //학식주문의 mainUI클래스
 public class mainUI extends JFrame implements ActionListener {         
@@ -100,7 +93,7 @@ public class mainUI extends JFrame implements ActionListener {
    int total=0;                                          					//총 가격 
    int col=0; int row=0; String contents = "";  
 
-   public mainUI(){
+   public mainUI() {
 	
       //전체 frame 생성
       JFrame frame = new JFrame("학식주문 키오스크");
@@ -115,8 +108,8 @@ public class mainUI extends JFrame implements ActionListener {
       highbar.setFont(new Font("Serif", Font.BOLD, 35));
       NorthPanel.add(highbar);                   
 
-	Panel CenterPanel = new Panel();                      			//중앙Center패널 생성
-	CenterPanel.setLayout(null);                        		//중앙Center패널 배경색 설정
+      Panel CenterPanel = new Panel();                      		//중앙Center패널 생성
+      CenterPanel.setLayout(null);                        			//중앙Center패널 배경색 설정
       CenterPanel.setBackground(Color.white);
 
       //중앙패널 메뉴배열, 메뉴텍스트배열
@@ -136,7 +129,7 @@ public class mainUI extends JFrame implements ActionListener {
       JButton ok[] = new JButton[menu.length];                      //주문담기 버튼[]
       Label won[] = new Label[menu.length];          				//메뉴가격[]
       Label name[] = new Label[menu.length];             			//메뉴이름[]
-	  Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 14);	//메뉴 이름 폰트, 볼드, 사이즈설정
+	  Font font1 = new Font(Font.MONOSPACED, Font.BOLD, 14);		//메뉴 이름 폰트, 볼드, 사이즈설정
       this.count = new int [menu.length];                  
       this.order_sheet_count = new int [menu.length];         
 
@@ -161,35 +154,35 @@ public class mainUI extends JFrame implements ActionListener {
             bt_menu[i].setBounds(75 + i * 220, 40, 150, 105);			//메뉴1,2,3을 setBounds()에 따라 레이아웃 구성
          }
          else if(i<6) {                                    
-            bt_menu[i].setBounds(75 + (i-3) * 220, 260, 150, 105);	//메뉴4,5,6을 setBounds()에 따라 레이아웃 구성
+            bt_menu[i].setBounds(75 + (i-3) * 220, 260, 150, 105);		//메뉴4,5,6을 setBounds()에 따라 레이아웃 구성
          }
          else {                                          
             bt_menu[i].setBounds(90 + (i - 6) * 119, 480, 100, 100);	//사이드메뉴1,2,3 및 음료메뉴1,2를 setBounds()에 따라 레이아웃 구성
          }
 
-         name[i] = new Label(menu_txt[i]); 											   				//메뉴이름 구성
-         name[i].setFont(font1);													   				//메뉴이름 폰트설정
-         name[i].setBounds(bt_menu[i].getX()-3, bt_menu[i].getY() - 20, 115, 20);     //메뉴이름 레이아웃
+         name[i] = new Label(menu_txt[i]); 											 	//메뉴이름 구성
+         name[i].setFont(font1);													 	//메뉴이름 폰트설정
+         name[i].setBounds(bt_menu[i].getX()-3, bt_menu[i].getY() - 20, 115, 20); 	    //메뉴이름 레이아웃
 
-         num[i] = new TextField("0");  														//수량버튼 0초기화
-         num[i].setBackground(Color.white); 													   //수량버튼 배경: white
-         num[i].setEditable(false);																//수량버튼 활성화
-         num[i].setBounds(bt_menu[i].getX() + 30, bt_menu[i].getY() + 130, 40, 20);   //수량버튼 레이아웃
+         num[i] = new TextField("0");  													//수량버튼 0초기화
+         num[i].setBackground(Color.white); 											//수량버튼 배경: white
+         num[i].setEditable(false);														//수량버튼 활성화
+         num[i].setBounds(bt_menu[i].getX() + 30, bt_menu[i].getY() + 130, 40, 20);		//수량버튼 레이아웃
 
-         minus[i] = new Button("-");															//수량 감소버튼 '-'
-         minus[i].setBounds(bt_menu[i].getX(), num[i].getY(), 20, 20);				//수량 감소버튼 '-' 레이아웃
-         minus[i].setEnabled(false);																//수량 감소버튼 '-' 활성화
+         minus[i] = new Button("-");													//수량 감소버튼 '-'
+         minus[i].setBounds(bt_menu[i].getX(), num[i].getY(), 20, 20);					//수량 감소버튼 '-' 레이아웃
+         minus[i].setEnabled(false);													//수량 감소버튼 '-' 활성화
 
-         plus[i] = new Button("+");															//수량 증가버튼 '+'
-         plus[i].setBounds(bt_menu[i].getX() + (100 - 20), num[i].getY(), 20, 20);	//수량 증가버튼 '+' 레이아웃
-         plus[i].setEnabled(true); 																//수량 증가버튼 '+' 활성화
+         plus[i] = new Button("+");														//수량 증가버튼 '+'
+         plus[i].setBounds(bt_menu[i].getX() + (100 - 20), num[i].getY(), 20, 20);		//수량 증가버튼 '+' 레이아웃
+         plus[i].setEnabled(true); 														//수량 증가버튼 '+' 활성화
 
-         won[i] = new Label(price[i] + "원");														//메뉴 가격:price + "원"
-         won[i].setBounds(bt_menu[i].getX() + 30, num[i].getY() - 25, 100, 20);       //메뉴 가격:price + "원" 레이아웃
+         won[i] = new Label(price[i] + "원");											//메뉴 가격:price + "원"
+         won[i].setBounds(bt_menu[i].getX() + 30, num[i].getY() - 25, 100, 20);			//메뉴 가격:price + "원" 레이아웃
 
-         ok[i] = new JButton("주문담기");														 //주문담기 (주문확인창에 추가)
-         ok[i].setBounds(bt_menu[i].getX(), num[i].getY() + 30, 100, 20);             //주문담기버튼 레이아웃
-         ok[i].setEnabled(false); 																 //주문담기버튼을 비활성화
+         ok[i] = new JButton("주문담기");													//주문담기 (주문확인창에 추가)
+         ok[i].setBounds(bt_menu[i].getX(), num[i].getY() + 30, 100, 20);				//주문담기버튼 레이아웃
+         ok[i].setEnabled(false); 														//주문담기버튼을 비활성화
 
 
          //중앙 패널에 메뉴이름, 수량조절버튼, 가격+"원", "확인", 주문담기버튼 추가
@@ -210,30 +203,30 @@ public class mainUI extends JFrame implements ActionListener {
       
       //주문담기창 EastPanel 생성
       Panel EastPanel = new Panel();
-      String[] [] data = new String[0][0];							    //주문담기창 2차원배열[][] 생성
-      String[] title = {"상품명","단가","수량","합계", "총 금액"};	  	  //주문담기창 태그 5가지
+      String[] [] data = new String[0][0];												//주문담기창 2차원배열[][] 생성
+      String[] title = {"상품명","단가","수량","합계", "총 금액"};								//주문담기창 태그 5가지
       TextArea txt = new TextArea("");
-      DefaultTableModel model = new DefaultTableModel(data, title);   	 //주문담기 데이터, 태그5가지로 model 구성
-      JTable table = new JTable(model);                               	 //model을 통해 table 구성
-      JScrollPane scrollPane = new JScrollPane(table);               	 //주문담기 창이 부족할것을 대비하여 스크롤 구성
+      DefaultTableModel model = new DefaultTableModel(data, title);						//주문담기 데이터, 태그5가지로 model 구성
+      JTable table = new JTable(model);													//model을 통해 table 구성
+      JScrollPane scrollPane = new JScrollPane(table);									//주문담기 창이 부족할것을 대비하여 스크롤 구성
       scrollPane = new JScrollPane(table);
-      scrollPane.setPreferredSize(new Dimension(420,730)); //주문담기창 사이즈
-      EastPanel.add(scrollPane);                                         //주문담기창 추가
+      scrollPane.setPreferredSize(new Dimension(420,730)); 								//주문담기창 사이즈
+      EastPanel.add(scrollPane);														//주문담기창 추가
 
 
       //주요기능 3가지 버튼(종료, 리셋, 주문하기)이 있는 SelectPanel생성      
       Panel SelectPanel = new Panel();                              
-      SelectPanel.setLayout(new GridLayout(3,1,50,0));	//메뉴선택 SelectPanel 레이아웃
+      SelectPanel.setLayout(new GridLayout(3,1,50,0));									//메뉴선택 SelectPanel 레이아웃
       JButton order[] = new JButton[3];
       
         //레이아웃 위치 설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(NorthPanel, BorderLayout.NORTH);					//프로젝트제목 NorthPanel
-        frame.add(CenterPanel, BorderLayout.CENTER);                //메뉴판 CenterPanel
-        frame.add(EastPanel, BorderLayout.EAST);                    //주문담기창 EastPanel
+        frame.add(NorthPanel, BorderLayout.NORTH);										//프로젝트제목 NorthPanel
+        frame.add(CenterPanel, BorderLayout.CENTER);									//메뉴판 CenterPanel
+        frame.add(EastPanel, BorderLayout.EAST);          						        //주문담기창 EastPanel
         EastPanel.setBackground(Color.white);
-        frame.add(SelectPanel, BorderLayout.WEST);                  //주요기능 선택창 SelectPanel
-        frame.setSize(1250, 850);                     //학식주문 전체창 사이즈
+        frame.add(SelectPanel, BorderLayout.WEST);        								//주요기능 선택창 SelectPanel
+        frame.setSize(1250, 850);                    									//학식주문 전체창 사이즈
         frame.setVisible(true);
 
 
@@ -241,12 +234,12 @@ public class mainUI extends JFrame implements ActionListener {
         order[0] = new JButton(new ImageIcon("School Cafeteria Project\\img\\icon\\close.png"));  //close이미지 삽입
         order[1] = new JButton(new ImageIcon("School Cafeteria Project\\img\\icon\\reset.png"));  //reset이미지 삽입
         order[2] = new JButton(new ImageIcon("School Cafeteria Project\\img\\icon\\order.png"));  //order이미지 삽입
-        order[0].setBackground(Color.WHITE);																//close버튼 배경: white
-        order[1].setBackground(Color.WHITE);																//reset버튼 배경: white
-        order[2].setBackground(Color.WHITE);																//order버튼 배경: white
-        SelectPanel.add(order[0]);																			//close버튼 추가
-        SelectPanel.add(order[1]);																			//reset버튼 추가
-        SelectPanel.add(order[2]);																			//order버튼 추가
+        order[0].setBackground(Color.WHITE);															//close버튼 배경: white
+        order[1].setBackground(Color.WHITE);															//reset버튼 배경: white
+        order[2].setBackground(Color.WHITE);															//order버튼 배경: white
+        SelectPanel.add(order[0]);																		//close버튼 추가
+        SelectPanel.add(order[1]);																		//reset버튼 추가
+        SelectPanel.add(order[2]);																		//order버튼 추가
 
 
         // 1.종료 버튼
@@ -254,7 +247,8 @@ public class mainUI extends JFrame implements ActionListener {
            
            @Override
            public void actionPerformed(ActionEvent e) {
-              System.exit(0);							 //시스템 종료 메소드() 실행으로 종료
+        	  //시스템 종료 메소드() 실행으로 종료
+              System.exit(0);							 		
            }
         });
 
@@ -263,25 +257,24 @@ public class mainUI extends JFrame implements ActionListener {
 
            @Override
            public void actionPerformed(ActionEvent e) {
-              model.setNumRows(0);			        //주문담기 내역 model을 초기화하여 주문담기 리셋
-              txt.setText(""); 							    //{상품명, 단가, 수량, 합계, 총금액}의 text 또한 리셋
-              total=0; 										   //total: 총금액 또한 리셋
+              model.setNumRows(0);								//주문담기 내역 model을 초기화하여 주문담기 리셋
+              txt.setText("");									//{상품명, 단가, 수량, 합계, 총금액}의 text 또한 리셋
+              total=0; 											//total: 총금액 또한 리셋
               
             for (int j=0; j<menu.length; j++) {
-               order_sheet_count[j]=0;       	               // 전 메뉴의 주문서 누적 개수 초기화 (주문담기 버튼 누르기 후)
-               count[j]=0;                       			   // 전 메뉴의 주문 개수 초기화 (주문담기 버튼 누르기 전)
+               order_sheet_count[j]=0;							// 전 메뉴의 주문서 누적 개수 초기화 (주문담기 버튼 누르기 후)
+               count[j]=0;                						// 전 메뉴의 주문 개수 초기화 (주문담기 버튼 누르기 전)
             }
             for (int i=0; i<menu.length; i++) {
-               minus[i].setEnabled(false);                   // '-' 버튼 닫기
-               plus[i].setEnabled(true);                     // '+' 버튼 열기
-               ok[i].setEnabled(false);                    	// '주문담기' 버튼 닫기
+               minus[i].setEnabled(false);     					// '-' 버튼 닫기
+               plus[i].setEnabled(true);     					// '+' 버튼 열기
+               ok[i].setEnabled(false);          				// '주문담기' 버튼 닫기
             }
          }
       });
 
         // 3.주문하기 버튼
         order[2].addActionListener(new ActionListener() {
-
            public void actionPerformed(ActionEvent e) {
               
               //"주문하시겠습니까?" 메세지
@@ -298,31 +291,39 @@ public class mainUI extends JFrame implements ActionListener {
                  //total: 총 금액이 0이 아닐경우, 주문담기 table의 해당 단가, 수량을 가져와서 메세지 출력
                  else {
                     for (int j=0; j<menu.length; j++) {
-                       menu_rest_num[j] = menu_rest_num[j]-order_sheet_count[j];	// 재고상황 변경
+                       // 재고상황 변경
+                       menu_rest_num[j] = menu_rest_num[j]-order_sheet_count[j];	
                     }
-					//주문담기 table의 해당 단가, 수량을 가져와서 메세지 출력
                     for(int i=0; i<table.getRowCount(); i++) {
+                       //주문담기 table의 해당 단가, 수량을 가져와서 메세지 출력
                        txt.append(table.getValueAt(i, 0)+" "+table.getValueAt(i, 1)+" X "+table.getValueAt(i, 2)+"개\n");
                     }
 
                     //예외상황처리
+                    //contents: 주문담기의 메뉴이름 ex) main:제육덮밥, side:감자튀김
+                    contents = txt.toString();	
+                    
 					//main메뉴를 선택하지 않고, side메뉴만 선택했을시 안내 메세지 출력
-					//contents: 주문담기의 메뉴이름 ex) main:제육덮밥, side:감자튀김
-                    contents = txt.toString();
-                    if(!contents.contains("main:") && contents.contains("side:")) {  
+                    if(!contents.contains("main:") && contents.contains("side:")) {
+                        // 재고상황 변경
+                        for (int j=0; j<menu.length; j++) {
+                        	//재고상황에 반영되지않아야 함으로 선택메뉴 재고수 + 주문 재고수
+                            menu_rest_num[j] = menu_rest_num[j] + order_sheet_count[j];	
+                         }
                        JOptionPane.showMessageDialog(null, "메인메뉴가 선택되지 않았습니다.\n사이드메뉴는 메인메뉴 선택 시 추가할 수 있습니다.\n음료수는 메인메뉴와 상관없이 주문가능합니다."); 
-                       txt.setText("");
+                       txt.setText("");							//주문담기창 텍스트, 값 초기화
                     }
 
                     //정상적으로 main메뉴와 side메뉴를 함께 선택했다면 "총 OO원 결제 메세지" 출력
                     else {
                        JOptionPane.showMessageDialog(null, txt.getText()+"총 "+total+"원 결제되었습니다. \n감사합니다.");
                        total=0;									//total: 총금액 초기화
-                       txt.setText("");						//주문담기창 텍스트, 값 초기화
-                       model.setNumRows(0);			//주문담기 내역 model을 초기화하여 주문담기 리셋
+                       txt.setText("");							//주문담기창 텍스트, 값 초기화
+                       model.setNumRows(0);						//주문담기 내역 model을 초기화하여 주문담기 리셋
                        
                        for (int i=0; i<menu_rest_num.length; i++) {
-                          if (menu_rest_num[i]==0) {            // 재고상황 0일 경우, 모든 버튼 닫기
+                    	  // 재고상황 0일 경우, 모든 버튼 닫기
+                          if (menu_rest_num[i]==0) {            
                              minus[i].setEnabled(false);
                               plus[i].setEnabled(false);
                               ok[i].setEnabled(false);
@@ -337,9 +338,9 @@ public class mainUI extends JFrame implements ActionListener {
                  JOptionPane.showMessageDialog(null, "메뉴 선택 단계로 돌아갑니다.\n");
 
               for (int i = 0; i < menu.length; i++) {
-                 num[i].setText("0");							//초기화
-                 model.setNumRows(0);						//주문담기 내역 model을 초기화하여 주문담기 리셋
-                  txt.setText("");								//{상품명, 단가, 수량, 합계, 총금액}의 text 또한 리셋
+                 num[i].setText("0");								//초기화
+                 model.setNumRows(0);								//주문담기 내역 model을 초기화하여 주문담기 리셋
+                  txt.setText("");									//{상품명, 단가, 수량, 합계, 총금액}의 text 또한 리셋
                   total=0;											//total: 총금액 또한 리셋
                   
                 for (int j=0; j<menu.length; j++) {
@@ -347,8 +348,8 @@ public class mainUI extends JFrame implements ActionListener {
                    count[j]=0;										//전 메뉴 초기화 (주문담기 버튼 누르기 전)
                 }
                 
-                minus[i].setEnabled(false);						//'-' 버튼 막기
-                plus[i].setEnabled(true);						//'+' 버튼 열기
+                minus[i].setEnabled(false);							//'-' 버튼 막기
+                plus[i].setEnabled(true);							//'+' 버튼 열기
                 ok[i].setEnabled(false);							//'주문담기' 버튼 막기
               }
            }
@@ -391,7 +392,7 @@ public class mainUI extends JFrame implements ActionListener {
                         ok[j].setEnabled(false);					//'주문담기', '-' 버튼 막기
                         minus[j].setEnabled(false);
                      } else {										//선택했다가 다시 차감하였지만 0이 아닐 때
-                        ok[j].setEnabled(true);					//'주문담기' 버튼 열기
+                        ok[j].setEnabled(true);						//'주문담기' 버튼 열기
                      }
                      
                   } else {											//메뉴 선택 안한 경우
@@ -399,9 +400,9 @@ public class mainUI extends JFrame implements ActionListener {
                      ok[j].setEnabled(false);
                   }                       
                   if (order_sheet_count[j] == menu_rest_num[j]) {   //재고상황과 같은 수가 되면
-                     plus[j].setEnabled(false);					//'+' 버튼 막기
+                     plus[j].setEnabled(false);						//'+' 버튼 막기
                   } else {											//재고상황보다 낮은 수면
-                     plus[j].setEnabled(true);					//'+' 버튼 열기
+                     plus[j].setEnabled(true);						//'+' 버튼 열기
                   }
                }
             }   
@@ -425,7 +426,7 @@ public class mainUI extends JFrame implements ActionListener {
                   order_sheet_count[j] = order_sheet_count[j]+1;	//주문서 누적 메뉴 수 +1
                   
                   if (order_sheet_count[j]==menu_rest_num[j]) {		//각 메뉴에 대한 주문서 누적 선택 수가 재고와 같다면
-                     plus[j].setEnabled(false);					//'+' 버튼 막기
+                     plus[j].setEnabled(false);						//'+' 버튼 막기
                   }
                   
                   // '+' 버튼 누르면, 선택 개수만큼 num[j] 변경, '주문담기' 버튼 열기, '-' 버튼 열기
@@ -446,7 +447,7 @@ public class mainUI extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-               num[j].setText("0");								//메뉴 선택 수 0으로 초기화
+               num[j].setText("0");									//메뉴 선택 수 0으로 초기화
                
                //재고 0이면 '+', '-', '주문담기' 버튼 막기, 메뉴 선택 수 0으로 초기화
                if (menu_rest_num[j]==0){                     
@@ -467,8 +468,8 @@ public class mainUI extends JFrame implements ActionListener {
                   inputStr[4] = total+"원";            
                   count[j]=0;										//해당 메뉴 선택 수 초기화
                   model.addRow(inputStr);							//model에 inputStr 달아주기 = 주문서에 넣어주기
-                  ok[j].setEnabled(false);						//'주문담기' 버튼 막기
-                  minus[j].setEnabled(false);					//'-' 버튼 막기
+                  ok[j].setEnabled(false);							//'주문담기' 버튼 막기
+                  minus[j].setEnabled(false);						//'-' 버튼 막기
                }
             }
          });
@@ -489,7 +490,7 @@ public class mainUI extends JFrame implements ActionListener {
    }
 
    public static void main(String[] args) {
-      new mainUI();
-
+	   //mainUI() 실행
+	   new mainUI();
    }
 }
